@@ -9,7 +9,7 @@
 <style>
 
 /* =========================================================
-   DASAR
+   RESET
 ========================================================= */
 
 * {
@@ -33,7 +33,7 @@ body {
 
 
 /* =========================================================
-   DUNIA KATAK
+   SCENE
 ========================================================= */
 
 .scene {
@@ -155,7 +155,7 @@ body {
 
 /* =========================================================
    JUDUL PEMBUKA
-   MUNCUL SEKALI → HILANG → TIDAK PERNAH MUNCUL LAGI
+   MUNCUL SEKALI SAJA
 ========================================================= */
 
 .chatBubble {
@@ -235,7 +235,7 @@ body {
 
 
 /* =========================================================
-   HILANGKAN JUDUL SETELAH 3 DETIK
+   JUDUL MENGHILANG
 ========================================================= */
 
 .chatBubble.hide {
@@ -268,7 +268,7 @@ body {
 
 
 /* =========================================================
-   TEKS JAHIL
+   BALON EJekan
 ========================================================= */
 
 .teaseBubble {
@@ -302,17 +302,19 @@ body {
 .teaseBubble.show {
 
     animation:
-        tease .1s ease,
-        teaseDisappear 1.5s ease .1s forwards;
+        teaseAppear .15s ease,
+        teaseDisappear 1.5s ease .15s forwards;
 }
 
-@keyframes tease {
+@keyframes teaseAppear {
 
     from {
+        opacity: 0;
         transform: scale(.7);
     }
 
     to {
+        opacity: 1;
         transform: scale(1);
     }
 
@@ -453,7 +455,6 @@ body {
 }
 
 .ripple.two {
-
     animation-delay: 1.2s;
 }
 
@@ -573,13 +574,11 @@ body {
 }
 
 .flower.one {
-
     left: 65px;
     bottom: 70px;
 }
 
 .flower.two {
-
     right: 65px;
     bottom: 80px;
 }
@@ -769,16 +768,12 @@ body {
 }
 
 .leg.left {
-
     left: -5px;
-
     transform: rotate(-15deg);
 }
 
 .leg.right {
-
     right: -5px;
-
     transform: rotate(15deg);
 }
 
@@ -813,7 +808,6 @@ body {
 }
 
 .frog.tease .tongue {
-
     transform: scaleY(1);
 }
 
@@ -875,7 +869,7 @@ body {
 
 
 /* =========================================================
-   RUMPUT DEPAN
+   RUMPUT
 ========================================================= */
 
 .grass {
@@ -1046,7 +1040,6 @@ body {
 }
 
 .frog.happy .pupil {
-
     opacity: 0;
 }
 
@@ -1070,7 +1063,7 @@ body {
 
 
 /* =========================================================
-   SAAT ENDING
+   ENDING
 ========================================================= */
 
 .scene.ending #catchButton,
@@ -1084,7 +1077,7 @@ body {
 
 
 /* =========================================================
-   HP
+   MOBILE
 ========================================================= */
 
 @media (max-width: 700px) {
@@ -1118,12 +1111,16 @@ body {
 <div class="scene" id="scene">
 
 
-    <!-- MATAHARI -->
+    <!-- =================================================
+         MATAHARI
+    ================================================== -->
 
     <div class="sun"></div>
 
 
-    <!-- AWAN -->
+    <!-- =================================================
+         AWAN
+    ================================================== -->
 
     <div class="cloud one"></div>
     <div class="cloud two"></div>
@@ -1131,7 +1128,6 @@ body {
 
     <!-- =================================================
          JUDUL PEMBUKA
-         CUMA MUNCUL SEKALI
     ================================================== -->
 
     <div class="chatBubble" id="chatBubble">
@@ -1140,22 +1136,26 @@ body {
 
 
     <!-- =================================================
-         TEKS JAHIL
+         BALON EJekan
     ================================================== -->
 
     <div class="teaseBubble" id="teaseBubble">
-        yahh pencet doang lohh 😂
+        yahh pencet doang loh 😂
     </div>
 
 
-    <!-- HEHE -->
+    <!-- =================================================
+         HEHE
+    ================================================== -->
 
     <div class="hehe" id="hehe">
         HEHE 😜
     </div>
 
 
-    <!-- KOLAM -->
+    <!-- =================================================
+         KOLAM
+    ================================================== -->
 
     <div class="pond"></div>
 
@@ -1163,13 +1163,17 @@ body {
     <div class="ripple two"></div>
 
 
-    <!-- DAUN -->
+    <!-- =================================================
+         DAUN TERATAI
+    ================================================== -->
 
     <div class="lily one"></div>
     <div class="lily two"></div>
 
 
-    <!-- BUNGA -->
+    <!-- =================================================
+         BUNGA
+    ================================================== -->
 
     <div class="flower one"></div>
     <div class="flower two"></div>
@@ -1204,7 +1208,9 @@ body {
     </div>
 
 
-    <!-- RUMPUT -->
+    <!-- =================================================
+         RUMPUT
+    ================================================== -->
 
     <div class="grass"></div>
 
@@ -1257,7 +1263,7 @@ const hehe =
 
 
 /* =========================================================
-   SETTING
+   PENGATURAN
 ========================================================= */
 
 let escapeCount = 0;
@@ -1269,8 +1275,8 @@ let ending = false;
 
 /* =========================================================
    JUDUL PEMBUKA
-   MUNCUL SEKALI SAJA
-   SETELAH 3 DETIK HILANG
+   MUNCUL SEKALI
+   HILANG SETELAH 3 DETIK
 ========================================================= */
 
 setTimeout(() => {
@@ -1278,6 +1284,33 @@ setTimeout(() => {
     chatBubble.classList.add("hide");
 
 }, 3000);
+
+
+/* =========================================================
+   VARIANT KALIMAT JAHIL
+========================================================= */
+
+const teaseTexts = [
+
+    "yahh pencet doang loh 😂",
+
+    "hehe kok susah sih 😜",
+
+    "dikit lagi... eh kabur 🐸",
+
+    "wkwkwk hampir kena 🤣",
+
+    "masa katak aja nggak ketangkep 😭",
+
+    "ayo dong, jangan nyerah 😝",
+
+    "HAHAHA masih belum bisa? 😂",
+
+    "oke oke... sekarang coba lagi 😏"
+
+];
+
+let teaseIndex = 0;
 
 
 /* =========================================================
@@ -1318,12 +1351,23 @@ function frogTongue() {
 
 
 /* =========================================================
-   TEKS JAHIL
+   TAMPILKAN EJekan BERGANTIAN
 ========================================================= */
 
 function showTease() {
 
     teaseBubble.classList.remove("show");
+
+    teaseBubble.innerHTML =
+        teaseTexts[teaseIndex];
+
+    teaseIndex++;
+
+    if (teaseIndex >= teaseTexts.length) {
+
+        teaseIndex = 0;
+
+    }
 
     void teaseBubble.offsetWidth;
 
@@ -1409,7 +1453,7 @@ function moveButton() {
 
 
 /* =========================================================
-   MOUSE MENDEKATI TOMBOL
+   TOMBOL KABUR
 ========================================================= */
 
 button.addEventListener(
@@ -1427,7 +1471,7 @@ button.addEventListener(
         }
 
 
-        /* Tambah jumlah kabur */
+        /* Tambah hitungan */
 
         escapeCount++;
 
@@ -1451,7 +1495,7 @@ button.addEventListener(
         }, 80);
 
 
-        /* Teks jahil */
+        /* Kalimat ejekan */
 
         setTimeout(() => {
 
@@ -1470,13 +1514,15 @@ button.addEventListener(
 
 
         /* =================================================
-           SETELAH KABUR KE-8
+           SETELAH 8 KALI KABUR
         ================================================== */
 
         if (escapeCount === maxEscape) {
 
             setTimeout(() => {
 
+
+                /* Kembalikan tombol */
 
                 button.style.left =
                     "50%";
@@ -1491,6 +1537,8 @@ button.addEventListener(
                     "translateX(-50%)";
 
 
+                /* Ganti tulisan tombol */
+
                 button.innerHTML =
                     "Oke deh... klik aku 🐸";
 
@@ -1504,7 +1552,7 @@ button.addEventListener(
 
 
 /* =========================================================
-   KLIK
+   KLIK TOMBOL
 ========================================================= */
 
 button.addEventListener(
@@ -1517,7 +1565,9 @@ button.addEventListener(
         }
 
 
-        /* Kalau belum 8 kali */
+        /* =================================================
+           BELUM 8 KALI
+        ================================================== */
 
         if (escapeCount < maxEscape) {
 
@@ -1526,6 +1576,7 @@ button.addEventListener(
             showHehe();
 
             return;
+
         }
 
 
@@ -1536,12 +1587,19 @@ button.addEventListener(
         ending = true;
 
 
+        /* Katak lompat */
+
         frogJump();
 
 
         setTimeout(() => {
 
+            /* Katak tersenyum */
+
             frog.classList.add("happy");
+
+
+            /* Tampilkan ending */
 
             scene.classList.add("ending");
 
