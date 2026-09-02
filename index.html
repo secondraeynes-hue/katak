@@ -1,0 +1,1592 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Katak Jahil 🐸</title>
+
+<style>
+
+/* =========================================================
+   DASAR
+========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    background: #dff8ff;
+}
+
+
+/* =========================================================
+   DUNIA KATAK
+========================================================= */
+
+.scene {
+    position: relative;
+
+    width: min(1100px, 96vw);
+    height: min(700px, 94vh);
+
+    overflow: hidden;
+
+    border-radius: 28px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #8fdcf5 0%,
+            #e5f9ff 58%,
+            #7bd363 58%,
+            #4db749 100%
+        );
+
+    box-shadow:
+        0 20px 45px rgba(0,0,0,.15);
+}
+
+
+/* =========================================================
+   MATAHARI
+========================================================= */
+
+.sun {
+    position: absolute;
+
+    width: 90px;
+    height: 90px;
+
+    top: 38px;
+    right: 60px;
+
+    border-radius: 50%;
+
+    background: #ffda61;
+
+    box-shadow:
+        0 0 30px rgba(255,218,97,.7);
+}
+
+
+/* =========================================================
+   AWAN
+========================================================= */
+
+.cloud {
+    position: absolute;
+
+    width: 145px;
+    height: 42px;
+
+    background: rgba(255,255,255,.9);
+
+    border-radius: 50px;
+
+    animation: cloudMove 30s linear infinite;
+}
+
+.cloud::before,
+.cloud::after {
+    content: "";
+
+    position: absolute;
+
+    background: white;
+
+    border-radius: 50%;
+}
+
+.cloud::before {
+    width: 65px;
+    height: 65px;
+
+    left: 20px;
+    bottom: 3px;
+}
+
+.cloud::after {
+    width: 75px;
+    height: 75px;
+
+    right: 18px;
+    bottom: 1px;
+}
+
+.cloud.one {
+    top: 90px;
+    left: -200px;
+}
+
+.cloud.two {
+    top: 190px;
+    left: -400px;
+
+    transform: scale(.65);
+
+    animation-delay: 10s;
+}
+
+@keyframes cloudMove {
+
+    from {
+        left: -250px;
+    }
+
+    to {
+        left: 1200px;
+    }
+
+}
+
+
+/* =========================================================
+   JUDUL PEMBUKA
+   MUNCUL SEKALI → HILANG → TIDAK PERNAH MUNCUL LAGI
+========================================================= */
+
+.chatBubble {
+    position: absolute;
+
+    left: 50%;
+    top: 75px;
+
+    transform:
+        translateX(-50%)
+        rotate(-2deg);
+
+    padding: 18px 32px;
+
+    background: #fff4cf;
+
+    color: #287b3b;
+
+    font-size: 23px;
+    font-weight: bold;
+
+    white-space: nowrap;
+
+    border-radius: 25px;
+
+    border: 3px solid #efd98e;
+
+    box-shadow:
+        0 10px 25px rgba(0,0,0,.12);
+
+    z-index: 100;
+
+    animation:
+        titleFloat 2s ease-in-out infinite;
+}
+
+.chatBubble::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 50%;
+    bottom: -15px;
+
+    width: 24px;
+    height: 24px;
+
+    transform:
+        translateX(-50%)
+        rotate(45deg);
+
+    background: #fff4cf;
+
+    border-right: 3px solid #efd98e;
+    border-bottom: 3px solid #efd98e;
+}
+
+@keyframes titleFloat {
+
+    0%,
+    100% {
+        transform:
+            translateX(-50%)
+            rotate(-2deg)
+            translateY(0);
+    }
+
+    50% {
+        transform:
+            translateX(-50%)
+            rotate(-2deg)
+            translateY(-5px);
+    }
+
+}
+
+
+/* =========================================================
+   HILANGKAN JUDUL SETELAH 3 DETIK
+========================================================= */
+
+.chatBubble.hide {
+
+    animation:
+        titleDisappear .7s ease forwards;
+}
+
+@keyframes titleDisappear {
+
+    from {
+        opacity: 1;
+
+        transform:
+            translateX(-50%)
+            translateY(0)
+            rotate(-2deg);
+    }
+
+    to {
+        opacity: 0;
+
+        transform:
+            translateX(-50%)
+            translateY(-20px)
+            rotate(-2deg);
+    }
+
+}
+
+
+/* =========================================================
+   TEKS JAHIL
+========================================================= */
+
+.teaseBubble {
+
+    position: absolute;
+
+    left: 55px;
+    top: 250px;
+
+    padding: 15px 23px;
+
+    background: white;
+
+    color: #378b46;
+
+    font-size: 18px;
+    font-weight: bold;
+
+    border-radius: 25px;
+
+    box-shadow:
+        0 8px 20px rgba(0,0,0,.12);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    z-index: 100;
+}
+
+.teaseBubble.show {
+
+    animation:
+        tease .1s ease,
+        teaseDisappear 1.5s ease .1s forwards;
+}
+
+@keyframes tease {
+
+    from {
+        transform: scale(.7);
+    }
+
+    to {
+        transform: scale(1);
+    }
+
+}
+
+@keyframes teaseDisappear {
+
+    0% {
+        opacity: 1;
+    }
+
+    70% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+}
+
+
+/* =========================================================
+   HEHE
+========================================================= */
+
+.hehe {
+
+    position: absolute;
+
+    left: 57%;
+    top: 220px;
+
+    color: #2d833e;
+
+    font-size: 21px;
+    font-weight: bold;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    z-index: 100;
+}
+
+.hehe.show {
+
+    animation:
+        heheAnimation 1.2s ease forwards;
+}
+
+@keyframes heheAnimation {
+
+    0% {
+        opacity: 0;
+
+        transform:
+            scale(.6)
+            rotate(-5deg);
+    }
+
+    25% {
+        opacity: 1;
+
+        transform:
+            scale(1.1)
+            rotate(4deg);
+    }
+
+    70% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+
+        transform:
+            translateY(-12px)
+            scale(.9);
+    }
+
+}
+
+
+/* =========================================================
+   KOLAM
+========================================================= */
+
+.pond {
+
+    position: absolute;
+
+    width: 680px;
+    height: 185px;
+
+    left: 50%;
+    bottom: 70px;
+
+    transform: translateX(-50%);
+
+    background: #55c4db;
+
+    border-radius: 50%;
+
+    box-shadow:
+        inset 0 10px 20px rgba(255,255,255,.2);
+
+    z-index: 10;
+}
+
+
+/* =========================================================
+   RIak
+========================================================= */
+
+.ripple {
+
+    position: absolute;
+
+    left: 50%;
+    bottom: 125px;
+
+    width: 150px;
+    height: 32px;
+
+    transform: translateX(-50%);
+
+    border:
+        3px solid rgba(255,255,255,.35);
+
+    border-radius: 50%;
+
+    animation:
+        rippleAnimation 2.5s infinite;
+
+    z-index: 20;
+}
+
+.ripple.two {
+
+    animation-delay: 1.2s;
+}
+
+@keyframes rippleAnimation {
+
+    0% {
+        opacity: 0;
+
+        transform:
+            translateX(-50%)
+            scale(.5);
+    }
+
+    40% {
+        opacity: .7;
+    }
+
+    100% {
+        opacity: 0;
+
+        transform:
+            translateX(-50%)
+            scale(1.5);
+    }
+
+}
+
+
+/* =========================================================
+   DAUN TERATAI
+========================================================= */
+
+.lily {
+
+    position: absolute;
+
+    width: 125px;
+    height: 62px;
+
+    background: #62c953;
+
+    border:
+        3px solid #40a844;
+
+    border-radius: 50%;
+
+    z-index: 18;
+}
+
+.lily::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 42px;
+    height: 42px;
+
+    right: -2px;
+    top: 1px;
+
+    background: #55c4db;
+
+    transform: rotate(45deg);
+
+    border-radius: 0 100% 0 0;
+}
+
+.lily.one {
+
+    left: 130px;
+    bottom: 110px;
+}
+
+.lily.two {
+
+    right: 125px;
+    bottom: 90px;
+
+    transform: scale(.75);
+}
+
+
+/* =========================================================
+   BUNGA
+========================================================= */
+
+.flower {
+
+    position: absolute;
+
+    width: 30px;
+    height: 30px;
+
+    background: white;
+
+    border-radius: 50%;
+
+    z-index: 70;
+}
+
+.flower::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 10px;
+    height: 10px;
+
+    left: 10px;
+    top: 10px;
+
+    background: #ffd74d;
+
+    border-radius: 50%;
+}
+
+.flower.one {
+
+    left: 65px;
+    bottom: 70px;
+}
+
+.flower.two {
+
+    right: 65px;
+    bottom: 80px;
+}
+
+
+/* =========================================================
+   KATAK
+========================================================= */
+
+.frog {
+
+    position: absolute;
+
+    width: 180px;
+    height: 155px;
+
+    left: 50%;
+    bottom: 140px;
+
+    margin-left: -90px;
+
+    z-index: 50;
+
+    animation:
+        frogIdle 2s ease-in-out infinite;
+}
+
+@keyframes frogIdle {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-6px);
+    }
+
+}
+
+
+/* =========================================================
+   BADAN
+========================================================= */
+
+.frogBody {
+
+    position: absolute;
+
+    width: 145px;
+    height: 112px;
+
+    left: 18px;
+    bottom: 2px;
+
+    background: #57bf53;
+
+    border:
+        4px solid #319d43;
+
+    border-radius: 55%;
+}
+
+
+/* =========================================================
+   MATA
+========================================================= */
+
+.eye {
+
+    position: absolute;
+
+    width: 58px;
+    height: 58px;
+
+    top: 0;
+
+    background: #57bf53;
+
+    border:
+        4px solid #319d43;
+
+    border-radius: 50%;
+
+    z-index: 60;
+}
+
+.eye.left {
+    left: 20px;
+}
+
+.eye.right {
+    right: 20px;
+}
+
+.pupil {
+
+    position: absolute;
+
+    width: 20px;
+    height: 27px;
+
+    left: 15px;
+    top: 12px;
+
+    background: #142919;
+
+    border-radius: 50%;
+}
+
+
+/* =========================================================
+   PIPI
+========================================================= */
+
+.blush {
+
+    position: absolute;
+
+    width: 21px;
+    height: 12px;
+
+    top: 73px;
+
+    background:
+        rgba(255,110,130,.55);
+
+    border-radius: 50%;
+
+    z-index: 70;
+}
+
+.blush.left {
+    left: 37px;
+}
+
+.blush.right {
+    right: 37px;
+}
+
+
+/* =========================================================
+   MULUT
+========================================================= */
+
+.mouth {
+
+    position: absolute;
+
+    width: 68px;
+    height: 36px;
+
+    left: 55px;
+    top: 72px;
+
+    border-bottom:
+        5px solid #256d34;
+
+    border-radius:
+        0 0 50px 50px;
+
+    z-index: 70;
+}
+
+
+/* =========================================================
+   KAKI
+========================================================= */
+
+.leg {
+
+    position: absolute;
+
+    width: 64px;
+    height: 33px;
+
+    bottom: -6px;
+
+    background: #57bf53;
+
+    border:
+        4px solid #319d43;
+
+    border-radius: 50%;
+
+    z-index: 55;
+}
+
+.leg.left {
+
+    left: -5px;
+
+    transform: rotate(-15deg);
+}
+
+.leg.right {
+
+    right: -5px;
+
+    transform: rotate(15deg);
+}
+
+
+/* =========================================================
+   LIDAH
+========================================================= */
+
+.tongue {
+
+    position: absolute;
+
+    width: 18px;
+    height: 75px;
+
+    left: 81px;
+    top: 92px;
+
+    background: #f4778f;
+
+    border:
+        3px solid #df6079;
+
+    border-radius:
+        0 0 13px 13px;
+
+    transform: scaleY(0);
+
+    transform-origin: top;
+
+    z-index: 80;
+}
+
+.frog.tease .tongue {
+
+    transform: scaleY(1);
+}
+
+.tongue::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 22px;
+    height: 14px;
+
+    left: -5px;
+    bottom: -5px;
+
+    background: #f4778f;
+
+    border-radius: 50%;
+}
+
+
+/* =========================================================
+   LOMPAT
+========================================================= */
+
+.frog.jump {
+
+    animation:
+        frogJump .8s ease;
+}
+
+@keyframes frogJump {
+
+    0% {
+        transform:
+            translateY(0)
+            rotate(0);
+    }
+
+    35% {
+        transform:
+            translateY(-120px)
+            rotate(-8deg);
+    }
+
+    60% {
+        transform:
+            translateY(-60px)
+            rotate(8deg);
+    }
+
+    100% {
+        transform:
+            translateY(0)
+            rotate(0);
+    }
+
+}
+
+
+/* =========================================================
+   RUMPUT DEPAN
+========================================================= */
+
+.grass {
+
+    position: absolute;
+
+    left: 0;
+    bottom: 0;
+
+    width: 100%;
+    height: 90px;
+
+    background: #50b84b;
+
+    z-index: 75;
+}
+
+.grass::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: -18px;
+
+    width: 100%;
+    height: 30px;
+
+    background:
+        repeating-linear-gradient(
+            120deg,
+            transparent 0px,
+            transparent 15px,
+            #389d43 16px,
+            #389d43 20px
+        );
+}
+
+
+/* =========================================================
+   TOMBOL
+========================================================= */
+
+#catchButton {
+
+    position: absolute;
+
+    left: 50%;
+    bottom: 20px;
+
+    transform: translateX(-50%);
+
+    padding: 15px 31px;
+
+    background: white;
+
+    border:
+        2px solid #d5d5d5;
+
+    border-radius: 30px;
+
+    color: #2d8440;
+
+    font-size: 18px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    z-index: 150;
+
+    box-shadow:
+        0 8px 20px rgba(0,0,0,.15);
+
+    transition:
+        left .2s ease,
+        top .2s ease,
+        transform .2s ease;
+}
+
+
+/* =========================================================
+   ENDING
+========================================================= */
+
+.endingText {
+
+    position: absolute;
+
+    left: 50%;
+    top: 70px;
+
+    transform:
+        translateX(-50%)
+        translateY(20px);
+
+    color: #287d3a;
+
+    font-size: 30px;
+    font-weight: bold;
+
+    white-space: nowrap;
+
+    opacity: 0;
+
+    z-index: 300;
+}
+
+.scene.ending .endingText {
+
+    animation:
+        endingAppear 1s ease forwards;
+}
+
+@keyframes endingAppear {
+
+    0% {
+        opacity: 0;
+
+        transform:
+            translateX(-50%)
+            translateY(20px)
+            scale(.8);
+    }
+
+    60% {
+        opacity: 1;
+
+        transform:
+            translateX(-50%)
+            translateY(0)
+            scale(1.08);
+    }
+
+    100% {
+        opacity: 1;
+
+        transform:
+            translateX(-50%)
+            translateY(0)
+            scale(1);
+    }
+
+}
+
+
+/* =========================================================
+   KATAK SENYUM
+========================================================= */
+
+.frog.happy .mouth {
+
+    width: 68px;
+    height: 35px;
+
+    left: 55px;
+    top: 70px;
+
+    background: #f47791;
+
+    border:
+        4px solid #246b32;
+
+    border-top: none;
+
+    border-radius:
+        0 0 50px 50px;
+}
+
+.frog.happy .pupil {
+
+    opacity: 0;
+}
+
+.frog.happy .eye::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 27px;
+    height: 14px;
+
+    left: 10px;
+    top: 18px;
+
+    border-top:
+        4px solid #246b32;
+
+    border-radius: 50%;
+}
+
+
+/* =========================================================
+   SAAT ENDING
+========================================================= */
+
+.scene.ending #catchButton,
+.scene.ending .teaseBubble,
+.scene.ending .hehe {
+
+    opacity: 0;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   HP
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .chatBubble {
+        font-size: 17px;
+        padding: 13px 20px;
+    }
+
+    .pond {
+        width: 90%;
+    }
+
+    .endingText {
+        font-size: 21px;
+    }
+
+    .teaseBubble {
+        left: 15px;
+        font-size: 14px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="scene" id="scene">
+
+
+    <!-- MATAHARI -->
+
+    <div class="sun"></div>
+
+
+    <!-- AWAN -->
+
+    <div class="cloud one"></div>
+    <div class="cloud two"></div>
+
+
+    <!-- =================================================
+         JUDUL PEMBUKA
+         CUMA MUNCUL SEKALI
+    ================================================== -->
+
+    <div class="chatBubble" id="chatBubble">
+        hehe sini kalau bisa 😜
+    </div>
+
+
+    <!-- =================================================
+         TEKS JAHIL
+    ================================================== -->
+
+    <div class="teaseBubble" id="teaseBubble">
+        yahh pencet doang lohh 😂
+    </div>
+
+
+    <!-- HEHE -->
+
+    <div class="hehe" id="hehe">
+        HEHE 😜
+    </div>
+
+
+    <!-- KOLAM -->
+
+    <div class="pond"></div>
+
+    <div class="ripple"></div>
+    <div class="ripple two"></div>
+
+
+    <!-- DAUN -->
+
+    <div class="lily one"></div>
+    <div class="lily two"></div>
+
+
+    <!-- BUNGA -->
+
+    <div class="flower one"></div>
+    <div class="flower two"></div>
+
+
+    <!-- =================================================
+         KATAK
+    ================================================== -->
+
+    <div class="frog" id="frog">
+
+        <div class="frogBody"></div>
+
+        <div class="eye left">
+            <div class="pupil"></div>
+        </div>
+
+        <div class="eye right">
+            <div class="pupil"></div>
+        </div>
+
+        <div class="blush left"></div>
+        <div class="blush right"></div>
+
+        <div class="mouth"></div>
+
+        <div class="tongue"></div>
+
+        <div class="leg left"></div>
+        <div class="leg right"></div>
+
+    </div>
+
+
+    <!-- RUMPUT -->
+
+    <div class="grass"></div>
+
+
+    <!-- =================================================
+         ENDING
+    ================================================== -->
+
+    <div class="endingText" id="endingText">
+        senyum nya dong manis &lt; ✨
+    </div>
+
+
+    <!-- =================================================
+         TOMBOL
+    ================================================== -->
+
+    <button id="catchButton">
+        Ayo tangkap aku! 🐸
+    </button>
+
+
+</div>
+
+
+
+<script>
+
+/* =========================================================
+   ELEMENT
+========================================================= */
+
+const scene =
+    document.getElementById("scene");
+
+const frog =
+    document.getElementById("frog");
+
+const button =
+    document.getElementById("catchButton");
+
+const chatBubble =
+    document.getElementById("chatBubble");
+
+const teaseBubble =
+    document.getElementById("teaseBubble");
+
+const hehe =
+    document.getElementById("hehe");
+
+
+/* =========================================================
+   SETTING
+========================================================= */
+
+let escapeCount = 0;
+
+const maxEscape = 8;
+
+let ending = false;
+
+
+/* =========================================================
+   JUDUL PEMBUKA
+   MUNCUL SEKALI SAJA
+   SETELAH 3 DETIK HILANG
+========================================================= */
+
+setTimeout(() => {
+
+    chatBubble.classList.add("hide");
+
+}, 3000);
+
+
+/* =========================================================
+   LOMPAT KATAK
+========================================================= */
+
+function frogJump() {
+
+    frog.classList.remove("jump");
+
+    void frog.offsetWidth;
+
+    frog.classList.add("jump");
+
+}
+
+
+/* =========================================================
+   JULUR LIDAH
+========================================================= */
+
+function frogTongue() {
+
+    frog.classList.remove("tease");
+
+    void frog.offsetWidth;
+
+    frog.classList.add("tease");
+
+
+    setTimeout(() => {
+
+        frog.classList.remove("tease");
+
+    }, 750);
+
+}
+
+
+/* =========================================================
+   TEKS JAHIL
+========================================================= */
+
+function showTease() {
+
+    teaseBubble.classList.remove("show");
+
+    void teaseBubble.offsetWidth;
+
+    teaseBubble.classList.add("show");
+
+}
+
+
+/* =========================================================
+   HEHE
+========================================================= */
+
+function showHehe() {
+
+    hehe.classList.remove("show");
+
+    void hehe.offsetWidth;
+
+    hehe.classList.add("show");
+
+}
+
+
+/* =========================================================
+   PINDAHKAN TOMBOL
+========================================================= */
+
+function moveButton() {
+
+    const sceneWidth =
+        scene.clientWidth;
+
+    const sceneHeight =
+        scene.clientHeight;
+
+
+    const buttonWidth =
+        button.offsetWidth;
+
+    const buttonHeight =
+        button.offsetHeight;
+
+
+    const padding = 20;
+
+
+    const maxX =
+        sceneWidth -
+        buttonWidth -
+        padding;
+
+
+    const maxY =
+        sceneHeight -
+        buttonHeight -
+        padding;
+
+
+    const x =
+        Math.random() *
+        Math.max(1, maxX - padding)
+        + padding;
+
+
+    const y =
+        Math.random() *
+        Math.max(1, maxY - padding)
+        + padding;
+
+
+    button.style.left =
+        x + "px";
+
+    button.style.top =
+        y + "px";
+
+    button.style.bottom =
+        "auto";
+
+    button.style.transform =
+        "translateX(0)";
+}
+
+
+/* =========================================================
+   MOUSE MENDEKATI TOMBOL
+========================================================= */
+
+button.addEventListener(
+    "mouseenter",
+    function () {
+
+
+        if (ending) {
+            return;
+        }
+
+
+        if (escapeCount >= maxEscape) {
+            return;
+        }
+
+
+        /* Tambah jumlah kabur */
+
+        escapeCount++;
+
+
+        /* Tombol kabur */
+
+        moveButton();
+
+
+        /* Katak julur lidah */
+
+        frogTongue();
+
+
+        /* Katak lompat */
+
+        setTimeout(() => {
+
+            frogJump();
+
+        }, 80);
+
+
+        /* Teks jahil */
+
+        setTimeout(() => {
+
+            showTease();
+
+        }, 100);
+
+
+        /* HEHE */
+
+        setTimeout(() => {
+
+            showHehe();
+
+        }, 250);
+
+
+        /* =================================================
+           SETELAH KABUR KE-8
+        ================================================== */
+
+        if (escapeCount === maxEscape) {
+
+            setTimeout(() => {
+
+
+                button.style.left =
+                    "50%";
+
+                button.style.top =
+                    "auto";
+
+                button.style.bottom =
+                    "20px";
+
+                button.style.transform =
+                    "translateX(-50%)";
+
+
+                button.innerHTML =
+                    "Oke deh... klik aku 🐸";
+
+
+            }, 900);
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   KLIK
+========================================================= */
+
+button.addEventListener(
+    "click",
+    function () {
+
+
+        if (ending) {
+            return;
+        }
+
+
+        /* Kalau belum 8 kali */
+
+        if (escapeCount < maxEscape) {
+
+            showTease();
+
+            showHehe();
+
+            return;
+        }
+
+
+        /* =================================================
+           ENDING
+        ================================================== */
+
+        ending = true;
+
+
+        frogJump();
+
+
+        setTimeout(() => {
+
+            frog.classList.add("happy");
+
+            scene.classList.add("ending");
+
+        }, 450);
+
+    }
+);
+
+
+/* =========================================================
+   LIDAH RANDOM
+========================================================= */
+
+setInterval(() => {
+
+    if (
+        !ending &&
+        Math.random() < .30
+    ) {
+
+        frogTongue();
+
+    }
+
+}, 5000);
+
+
+/* =========================================================
+   LOMPAT RANDOM
+========================================================= */
+
+setInterval(() => {
+
+    if (
+        !ending &&
+        Math.random() < .20
+    ) {
+
+        frogJump();
+
+    }
+
+}, 6000);
+
+</script>
+
+</body>
+</html>
